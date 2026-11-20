@@ -4,6 +4,7 @@ function App() {
   const [menuActive, setMenuActive] = useState(false);
   const [filter, setFilter] = useState('all');
   const [activeSection, setActiveSection] = useState('home');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const skillsRef = useRef(null);
   const [skillsVisible, setSkillsVisible] = useState(false);
@@ -11,62 +12,253 @@ function App() {
   const projects = [
     {
       id: 1,
-      category: 'ml-sec',
-      title: 'Phishing URL Detection',
-      tag: 'Machine Learning / Security',
-      description: 'Developed a Phishing URL Detection System using Machine Learning to identify malicious websites. Implemented algorithms such as SVM, Decision Tree, and Random Forest to classify URLs based on extracted features. Includes alert mechanism with alarm sound.',
-      tech: ['Python', 'SVM', 'Random Forest', 'Machine Learning'],
-      icon: 'fa-circle-exclamation',
-      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80'
+      category: 'fullstack',
+      title: 'Finance ERP Management System',
+      tag: 'Full-Stack Web ERP',
+      domain: 'Banking, NBFC & Microfinance',
+      description: 'Comprehensive financial ERP system covering Gold Loan, Personal Loan, Vehicle Loan, Chit Funds, and MFI Loans with automated EMI collection, branch performance reports, and expense management.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Firebase', 'Git', 'GitHub'],
+      icon: 'fa-coins',
+      image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&q=80',
+      details: {
+        overview: 'An enterprise-grade Financial ERP platform tailored for non-banking financial institutions (NBFCs), chit funds, and microfinance agencies. Engineered to manage diverse loan portfolios, multi-branch cash handling, automated EMI collection schedules, and real-time operational expense auditing.',
+        modules: [
+          {
+            title: 'Gold Loan Management',
+            desc: 'Automated gold purity & weight valuation, loan-to-value (LTV) limits calculation, daily interest computation, and safe packet release workflows.'
+          },
+          {
+            title: 'Personal & Vehicle Loans',
+            desc: 'Borrower KYC verification, RC book validation, guarantor tracking, interest rate customization, and automated amortization schedules.'
+          },
+          {
+            title: 'Chit Fund Management',
+            desc: 'Subscriber auction management, monthly dividend calculations, bid winner payouts, and comprehensive chit ledger tracking.'
+          },
+          {
+            title: 'Microfinance (MFI) Lending',
+            desc: 'Group lending (JLG/SHG) coordination, weekly/monthly field agent collection logs, and customer credit health tracking.'
+          },
+          {
+            title: 'EMI Collection & Reminders',
+            desc: 'Automated daily/monthly collection logs, penalty calculator for delayed payments, digital receipt generation, and SMS/notification triggers.'
+          },
+          {
+            title: 'Branch-Wise Reports & Expenses',
+            desc: 'Centralized dashboard tracking branch collections, cashier settlements, operational expenditure logs (rent, bills, staff), and profit & loss statements.'
+          }
+        ],
+        features: [
+          'End-to-end multi-loan lifecycle management (Application → Appraisal → Disbursement → Closure)',
+          'Automated EMI interest & penalty computation algorithms',
+          'Consolidated multi-branch performance analytics and ledger export (Excel/PDF)',
+          'Role-based security: Admin, Branch Manager, Cashier, and Field Collection Executive'
+        ]
+      }
     },
     {
       id: 2,
       category: 'fullstack',
-      title: 'Bank Transaction Management',
-      tag: 'Full-Stack Java',
-      description: 'Developed a secure and scalable Bank Transaction Management System using Spring Boot following layered architecture. Implemented account creation, deposit, withdrawal, fund transfer, balance enquiry, exception handling, and transaction safety validation.',
-      tech: ['Spring Boot', 'Spring Data JPA', 'MySQL', 'REST APIs'],
-      icon: 'fa-building-columns',
-      image: 'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=400&q=80'
+      title: 'Architecture Website & Career Portal',
+      tag: 'Full-Stack Web Application',
+      domain: 'Architecture, 3D Design & Recruitment',
+      description: 'Modern architecture showcase and job recruitment platform. Features interactive architectural design portfolios, project galleries, blueprint showcases, and an integrated job portal enabling candidates to view openings and apply for careers.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Firebase', 'Git', 'GitHub'],
+      icon: 'fa-compass-drafting',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80',
+      details: {
+        overview: 'A premium digital platform built for an architectural design studio. It serves a dual purpose: exhibiting high-end architectural designs, blueprints, and 3D visual walkthroughs to prospective clients, while serving as a dedicated hiring and job application portal for architects and designers.',
+        modules: [
+          {
+            title: 'Design Showcase & Portfolio',
+            desc: 'Categorized galleries for residential, commercial, and interior architecture with interactive image lightboxes and 3D floor plan viewers.'
+          },
+          {
+            title: 'Career & Job Application Portal',
+            desc: 'Live vacancy listings (Architect, 3D Modeler, Draftsman) where candidates can submit their profile, cover letter, resume, and portfolio links.'
+          },
+          {
+            title: 'Client Project Inquiries',
+            desc: 'Interactive form for potential clients to specify land dimensions, budget range, and design preferences for instant consultation scheduling.'
+          },
+          {
+            title: 'Admin Management Dashboard',
+            desc: 'Firm owners can post new project showcases, review candidate resumes, and manage customer inquiries directly from an admin panel.'
+          }
+        ],
+        features: [
+          'High-performance responsive image galleries with category-based filtering',
+          'Secure file upload pipeline for candidate resumes and CAD design sheets via Firebase',
+          'Automated email notifications to HR upon new job application submissions',
+          'Modern minimalist architectural aesthetic with smooth scrolling and animations'
+        ]
+      }
     },
     {
       id: 3,
       category: 'fullstack',
-      title: 'Student Management System',
-      tag: 'Java Backend',
-      description: 'Designed and developed a Student Management System to perform CRUD operations efficiently. Built RESTful APIs using Spring Boot and integrated them with a MySQL database. Followed layered architecture (Controller, Service, Repository) for better maintainability.',
-      tech: ['Spring Boot', 'MySQL', 'RESTful API', 'Postman'],
-      icon: 'fa-users-gear',
-      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80'
+      title: 'Academic Departments ERP',
+      tag: 'Role-Based ERP System',
+      domain: 'Higher Education & Institutional Management',
+      description: 'Complete departmental ERP featuring 3 specialized role-based logins: HOD, Staff, and Student. Provides seamless management of department administration, academic schedules, student tracking, staff allocations, and institutional reporting with secure access control.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Firebase', 'Git', 'GitHub'],
+      icon: 'fa-graduation-cap',
+      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=80',
+      details: {
+        overview: 'An institutional department ERP platform engineered to eliminate manual paperwork and centralize college department workflows. Built around three independent role-specific portals (HOD, Staff, Student) with strict Role-Based Access Control (RBAC).',
+        modules: [
+          {
+            title: 'HOD Executive Portal',
+            desc: 'Overall department oversight, semester subject allocation to faculty members, master timetable approvals, and student academic performance audits.'
+          },
+          {
+            title: 'Staff / Faculty Portal',
+            desc: 'Daily subject-wise student attendance entry, internal continuous assessment marks logging, syllabus coverage monitoring, and leave applications.'
+          },
+          {
+            title: 'Student Portal',
+            desc: 'Personalized dashboard displaying real-time attendance percentage, internal exam results, class timetables, and department notice board circulars.'
+          },
+          {
+            title: 'Automated Analytics & Alerts',
+            desc: 'Automated warnings for students falling below mandatory 75% attendance threshold and automated internal GPA / grade predictions.'
+          }
+        ],
+        features: [
+          'Three dedicated login portals tailored with specific permissions and views',
+          'Real-time student attendance calculation with low-attendance alert triggers',
+          'Consolidated semester marks compilation and PDF report card generation',
+          'Cloud-backed noticeboard with instant circular distribution'
+        ]
+      }
     },
     {
       id: 4,
-      category: 'frontend',
-      title: 'Laptop Showroom Website',
-      tag: 'Frontend Dev',
-      description: 'Created a Laptop Showroom website using HTML, CSS, JavaScript with product catalog, search filter, responsive UI, and interactive features, demonstrating strong frontend development and user-focused design skills.',
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'UX Design'],
-      icon: 'fa-store',
-      image: '/laptop-showroom.png'
+      category: 'mobile',
+      title: 'Lawyer ERP - Legal Practice Mobile App',
+      tag: 'React Native Legal ERP',
+      domain: 'Advocates, Law Chambers & Legal Practitioners (Vakkil)',
+      description: 'Dedicated legal practice management mobile app built specifically for Lawyers and Advocates (Vakkil). Tracks court cases across benches, hearing dates, client dossiers, legal document vaults, and professional fee billing.',
+      tech: ['React Native', 'Node.js', 'MongoDB', 'Firebase', 'Mobile UI'],
+      icon: 'fa-scale-balanced',
+      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80',
+      details: {
+        overview: 'A specialized Mobile ERP system developed specifically for practicing Advocates and Legal Chambers (Vakkil). It digitalizes daily courtroom routines, replacing manual paper diaries with automated case hearing alerts, client communication logs, court causelist tracking, and legal fee management.',
+        modules: [
+          {
+            title: 'Court Case & Docket Tracker',
+            desc: 'Organizes cases by Suit/Case number, court name (District, High Court, Tribunals), bench, judge, petitioner vs. respondent, and current case stage.'
+          },
+          {
+            title: 'Hearing Diary & Causelist Reminders',
+            desc: 'Automated calendar tracking daily hearing dates, next stage proceedings (Arguments, Evidence, Cross-examination), and adjournment notices.'
+          },
+          {
+            title: 'Client Dossier & Case History',
+            desc: 'Comprehensive client directory linked directly to ongoing cases, contact details, past judgments, and courtroom notes.'
+          },
+          {
+            title: 'Legal Document Repository',
+            desc: 'Secure digital vault for scanned petitions, vakalath, plaints, affidavits, bail orders, and judgment certified copies.'
+          },
+          {
+            title: 'Advocate Fee & Payment Tracker',
+            desc: 'Tracks retainer fees, per-appearance hearing charges, court fee expenditures, milestone payments, and pending dues with receipts.'
+          }
+        ],
+        features: [
+          'Customized for courtroom workflows of practicing lawyers & advocates',
+          'Push notifications for upcoming hearing dates and court calendar sync',
+          'Offline-ready mobile app interface with automated cloud sync via Firebase',
+          'Fast case search by client name, CNR number, FIR number, or case year'
+        ]
+      }
     },
     {
       id: 5,
-      category: 'frontend',
-      title: 'Online Zomato Clone',
-      tag: 'Frontend Dev',
-      description: 'Developed Online Zomato Web Application using HTML, CSS, JavaScript, implementing CRUD operations, authentication mockup, restaurant listings, food ordering layout, and fully responsive UI.',
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive UI'],
-      icon: 'fa-utensils',
-      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80'
+      category: 'mobile',
+      title: 'Smart Expense Tracker Mobile App',
+      tag: 'React Native Mobile App',
+      domain: 'Personal Finance & Small Business Budgeting',
+      description: 'Cross-platform mobile expense and budget tracking application. Features income and expense categorization, recurring payment reminders, monthly budget thresholds, visual expenditure charts, and real-time cloud sync.',
+      tech: ['React Native', 'Node.js', 'MongoDB', 'Firebase', 'Mobile UI'],
+      icon: 'fa-wallet',
+      image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80',
+      details: {
+        overview: 'A modern, intuitive personal finance and expense tracking mobile application built with React Native. Empowers users and small business owners to monitor daily cash flows, track category-wise spending habits, set spending caps, and visualize savings progress.',
+        modules: [
+          {
+            title: 'Daily Income & Expense Logging',
+            desc: 'Lightning-fast transaction recording with custom categories (Food, Travel, Utilities, Office, Subscriptions) and receipt photo uploads.'
+          },
+          {
+            title: 'Category Budgets & Spending Limits',
+            desc: 'Define monthly category thresholds with warning notifications when expenditures reach 80% and 100% of the allocated budget.'
+          },
+          {
+            title: 'Visual Spending Analytics',
+            desc: 'Interactive donut charts and month-over-month trend analysis showing exact expenditure distribution and savings percentages.'
+          },
+          {
+            title: 'Recurring Bills & Due Date Reminders',
+            desc: 'Automatic scheduling for recurring monthly bills (rent, loan EMI, subscriptions) with push reminders before due dates.'
+          }
+        ],
+        features: [
+          'Clean, minimalist mobile UI with responsive touch gestures and dark theme',
+          'Real-time cloud database synchronization across devices via Firebase',
+          'Export monthly financial statements in PDF and CSV format',
+          'Multi-currency and offline transaction caching support'
+        ]
+      }
+    },
+    {
+      id: 6,
+      category: 'security',
+      title: 'Phishing URL Detection System',
+      tag: 'Final Year Project / Network Security',
+      domain: 'Cyber Security & Machine Learning',
+      description: 'College Final Year Project in Network Security utilizing Machine Learning (SVM, Random Forest) to detect malicious phishing websites with an automated audio alert alarm mechanism.',
+      tech: ['Python', 'SVM', 'Random Forest', 'Scikit-learn', 'Flask', 'Machine Learning'],
+      icon: 'fa-shield-halved',
+      image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80',
+      details: {
+        overview: 'My Academic Final Year Engineering Project developed in the domain of Network Security and Artificial Intelligence. The system protects end-users and organizational networks by inspecting web URLs in real time to identify and block malicious phishing sites before credential theft occurs.',
+        modules: [
+          {
+            title: 'URL Feature Extraction Engine',
+            desc: 'Extracts 30+ lexical, domain, and host-based features including URL length, IP address usage, presence of "@" symbol, suspicious hyphenation, sub-domain depth, and HTTPS token misuse.'
+          },
+          {
+            title: 'ML Classification Pipeline',
+            desc: 'Trained and benchmarked multiple machine learning algorithms including Support Vector Machines (SVM), Random Forest, and Decision Trees for high-accuracy threat classification.'
+          },
+          {
+            title: 'Automated Alarm & Alert Mechanism',
+            desc: 'Engineered an active defensive mechanism that triggers an audible alarm sound and prominent screen warning the instant a phishing URL is detected.'
+          },
+          {
+            title: 'Real-Time Web Scanning Interface',
+            desc: 'Interactive portal where users can enter any suspicious hyperlink to inspect its risk score, extracted parameter attributes, and benign/malicious verdict.'
+          }
+        ],
+        features: [
+          'High predictive accuracy on standardized benchmark phishing datasets',
+          'Comprehensive lexical, domain-age, and WHOIS parameter analysis',
+          'Real-time detection pipeline with low latency and instant threat categorization',
+          'Audio sound alarm mechanism providing multi-sensory user warning'
+        ]
+      }
     }
   ];
 
   const coreSkills = [
-    { name: 'Java (Core & Advance)', percentage: '90%' },
-    { name: 'Spring Boot & JPA', percentage: '85%' },
-    { name: 'Web Development (HTML, CSS, JS)', percentage: '92%' },
-    { name: 'SQL (MySQL)', percentage: '80%' },
-    { name: 'Python & C/C++', percentage: '75%' }
+    { name: 'React & React Native', percentage: '90%' },
+    { name: 'Node.js & Express', percentage: '88%' },
+    { name: 'MongoDB & Firebase', percentage: '86%' },
+    { name: 'Java & Spring Boot', percentage: '82%' },
+    { name: 'Web Development (HTML5, CSS3, JS)', percentage: '92%' },
+    { name: 'Git & GitHub', percentage: '90%' }
   ];
 
   const aiTools = [
@@ -131,10 +323,43 @@ function App() {
     };
   }, []);
 
+  // Keyboard and scroll lock for project details modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedProject(null);
+      }
+    };
+
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProject]);
+
   const handleContactSubmit = (e) => {
     e.preventDefault();
-    alert('Message sent! Thank you for reaching out.');
-    e.target.reset();
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim();
+    const message = e.target.message.value.trim();
+
+    if (!name || !message) {
+      alert('Please fill in your Name and Message.');
+      return;
+    }
+
+    const phoneNumber = '919087997874';
+    const text = `*New Portfolio Contact Message*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email || 'Not provided')}%0A*Message:* ${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${text}`;
+
+    window.open(whatsappUrl, '_blank');
   };
 
   const filteredProjects = filter === 'all' 
@@ -144,9 +369,11 @@ function App() {
   return (
     <>
       {/* Background Elements */}
-      <div className="bg-glow bg-glow-1"></div>
-      <div className="bg-glow bg-glow-2"></div>
-      <div className="bg-glow bg-glow-3"></div>
+      <div className="bg-glow-wrapper">
+        <div className="bg-glow bg-glow-1"></div>
+        <div className="bg-glow bg-glow-2"></div>
+        <div className="bg-glow bg-glow-3"></div>
+      </div>
 
       {/* Header */}
       <header className="header">
@@ -182,9 +409,9 @@ function App() {
           <div className="hero-content">
             <div className="badge-glow">Ready to Innovate</div>
             <h1 className="hero-title">Hi, I'm <span className="text-gradient">Abraham M</span></h1>
-            <h2 className="hero-subtitle">Software Developer</h2>
+            <h2 className="hero-subtitle">Software Developer (1 Year Exp)</h2>
             <p className="hero-description">
-              Junior Software Developer at Mediawave Technology, Trichy. Computer Science graduate with strong fundamentals in programming, algorithms, and full-stack web development. Experienced in Java, Spring Boot, Web Development, and Cybersecurity.
+              Junior Software Developer with 1 Year of professional experience at Mediawave Technology, Trichy. Computer Science graduate with strong fundamentals in programming, algorithms, and full-stack development. Experienced in React, React Native, Node.js, MongoDB, Firebase, and Java.
             </p>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">View My Work <i className="fa-solid fa-arrow-right"></i></a>
@@ -194,19 +421,42 @@ function App() {
           <div className="hero-image-container">
             <div className="hero-image-wrapper">
               <img src="/profile.png" alt="Abraham M Portrait" className="hero-image" />
-              <div className="floating-badge badge-1">
+              <div className="floating-badge badge-react">
+                <i className="fa-brands fa-react"></i>
+                <span>React / RN</span>
+              </div>
+              <div className="floating-badge badge-java">
                 <i className="fa-brands fa-java"></i>
                 <span>Java</span>
               </div>
-              <div className="floating-badge badge-2">
-                <i className="fa-solid fa-code"></i>
-                <span>Web Dev</span>
+              <div className="floating-badge badge-sql">
+                <i className="fa-solid fa-database"></i>
+                <span>SQL</span>
+              </div>
+              <div className="floating-badge badge-node">
+                <i className="fa-brands fa-node-js"></i>
+                <span>Node.js</span>
               </div>
             </div>
           </div>
         </div>
         <div className="scroll-down">
           <a href="#about"><i className="fa-solid fa-chevron-down animated-bounce"></i></a>
+        </div>
+
+        {/* Wave Animation Divider */}
+        <div className="hero-waves-container">
+          <svg className="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shapeRendering="auto">
+            <defs>
+              <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g className="wave-parallax">
+              <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(99, 102, 241, 0.12)" />
+              <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(168, 85, 247, 0.18)" />
+              <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(56, 189, 248, 0.15)" />
+              <use xlinkHref="#gentle-wave" x="48" y="7" fill="var(--bg-dark)" />
+            </g>
+          </svg>
         </div>
       </section>
 
@@ -221,7 +471,7 @@ function App() {
             <div className="about-info card reveal">
               <h3>My Story & Objectives</h3>
               <p>
-                I am a Junior Software Developer at Mediawave Technology, Trichy. As a passionate Computer Science graduate, I aim to contribute technical expertise, build robust web applications, and drive innovative software solutions. My journey spans across solid programming core principles, backend frameworks, and securing modern web applications.
+                I am a Junior Software Developer with 1 Year of hands-on professional experience at Mediawave Technology, Trichy. As a passionate Computer Science graduate, I aim to contribute technical expertise, build robust web and mobile applications, and drive innovative software solutions. My journey spans across solid programming core principles, MERN stack, React Native, and securing modern web applications.
               </p>
               <div className="info-details">
                 <div className="info-item">
@@ -289,12 +539,13 @@ function App() {
                 <span className="timeline-date">May 2026 - Present</span>
                 <h3>Junior Software Developer</h3>
                 <h4 className="timeline-company">Mediawave Technology, Trichy</h4>
-                <p>Developing robust, scalable web applications and backend services. Contributing to full-stack development, software optimizations, and team collaborations on production deployments.</p>
+                <p>1 Year of hands-on professional software development experience. Developing robust, scalable web and mobile applications using React, React Native, Node.js, MongoDB, and Firebase, along with agile delivery and performance optimizations.</p>
                 <div className="timeline-skills">
+                  <span>1 Year Exp</span>
                   <span>Software Development</span>
-                  <span>Full-Stack</span>
-                  <span>Java / Spring Boot</span>
-                  <span>Database Management</span>
+                  <span>React & React Native</span>
+                  <span>Node.js / Express</span>
+                  <span>MongoDB & Firebase</span>
                 </div>
               </div>
             </div>
@@ -340,28 +591,49 @@ function App() {
             <div className="section-divider"></div>
           </div>
           <div className="project-filters reveal">
-            {['all', 'fullstack', 'frontend', 'ml-sec'].map((cat) => (
+            {[
+              { id: 'all', label: 'All Projects' },
+              { id: 'fullstack', label: 'Full-Stack Web (React & Node.js)' },
+              { id: 'mobile', label: 'Mobile Apps (React Native)' },
+              { id: 'security', label: 'Final Year / Network Security' }
+            ].map((cat) => (
               <button 
-                key={cat} 
-                className={`filter-btn ${filter === cat ? 'active' : ''}`}
-                onClick={() => setFilter(cat)}
+                key={cat.id} 
+                className={`filter-btn ${filter === cat.id ? 'active' : ''}`}
+                onClick={() => setFilter(cat.id)}
               >
-                {cat === 'all' ? 'All Projects' : cat === 'fullstack' ? 'Full-Stack / Java' : cat === 'frontend' ? 'Frontend Web' : 'ML & Security'}
+                {cat.label}
               </button>
             ))}
           </div>
           <div className="projects-grid reveal">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="project-card card" style={{ animation: 'cardAppear 0.5s ease forwards' }}>
+              <div 
+                key={project.id} 
+                className="project-card card" 
+                style={{ animation: 'cardAppear 0.5s ease forwards' }}
+                onClick={() => setSelectedProject(project)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedProject(project); }}
+                title="Click to view full project explanation"
+              >
                 <div className="project-image">
                   <img src={project.image} alt={project.title} />
                 </div>
                 <div className="project-details">
-                  <span className="project-tag">{project.tag}</span>
+                  <span className="project-tag">
+                    <i className={`fa-solid ${project.icon}`} style={{ marginRight: '6px' }}></i>
+                    {project.tag}
+                  </span>
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
                   <div className="project-tech">
                     {project.tech.map((t, idx) => <span key={idx}>{t}</span>)}
+                  </div>
+                  <div className="project-tap-prompt">
+                    <span><i className="fa-solid fa-circle-info"></i> View Full Explanation</span>
+                    <i className="fa-solid fa-arrow-right"></i>
                   </div>
                 </div>
               </div>
@@ -451,16 +723,32 @@ function App() {
               <p>Have an exciting opportunity or project? Feel free to reach out using the form or direct channels.</p>
               <div className="contact-info-list">
                 <div className="contact-info-item">
+                  <i className="fa-brands fa-whatsapp" style={{ color: '#25D366' }}></i>
+                  <div>
+                    <span>WhatsApp</span>
+                    <p><a href="https://wa.me/919087997874" target="_blank" rel="noopener noreferrer">+91 9087997874</a></p>
+                  </div>
+                </div>
+                <div className="contact-info-item">
                   <i className="fa-solid fa-phone"></i>
-                  <p>+91 9087997874</p>
+                  <div>
+                    <span>Phone</span>
+                    <p><a href="tel:9087997874">+91 9087997874</a></p>
+                  </div>
                 </div>
                 <div className="contact-info-item">
                   <i className="fa-solid fa-envelope"></i>
-                  <p>pabraham1028@gmail.com</p>
+                  <div>
+                    <span>Email</span>
+                    <p><a href="mailto:pabraham1028@gmail.com">pabraham1028@gmail.com</a></p>
+                  </div>
                 </div>
                 <div className="contact-info-item">
                   <i className="fa-solid fa-location-dot"></i>
-                  <p>Dindigul, Tamil Nadu, India</p>
+                  <div>
+                    <span>Location</span>
+                    <p>Dindigul, Tamil Nadu, India</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -478,7 +766,12 @@ function App() {
                   <label htmlFor="message">Message</label>
                   <textarea id="message" rows="5" required placeholder="Describe your project or message"></textarea>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Send Message <i className="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" className="btn btn-primary btn-block btn-whatsapp">
+                  Send via WhatsApp <i className="fa-brands fa-whatsapp"></i>
+                </button>
+                <p className="whatsapp-direct-hint">
+                  <i className="fa-solid fa-bolt"></i> Direct WhatsApp message to <strong>+91 9087997874</strong>
+                </p>
               </form>
             </div>
           </div>
@@ -495,6 +788,90 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Project Details Modal */}
+      {selectedProject && (
+        <div 
+          className="project-modal-backdrop" 
+          onClick={() => setSelectedProject(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="project-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="modal-close-btn" 
+              onClick={() => setSelectedProject(null)}
+              aria-label="Close project details"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+
+            <div className="modal-header-image">
+              <img src={selectedProject.image} alt={selectedProject.title} />
+              <div className="modal-header-overlay">
+                <span className="project-tag">
+                  <i className={`fa-solid ${selectedProject.icon}`} style={{ marginRight: '6px' }}></i>
+                  {selectedProject.tag}
+                </span>
+                <h2>{selectedProject.title}</h2>
+                {selectedProject.domain && (
+                  <span className="modal-domain"><i className="fa-solid fa-briefcase"></i> {selectedProject.domain}</span>
+                )}
+              </div>
+            </div>
+
+            <div className="modal-body">
+              <div className="modal-section">
+                <h3><i className="fa-solid fa-file-lines"></i> Project Overview</h3>
+                <p className="modal-overview-text">{selectedProject.details.overview}</p>
+              </div>
+
+              {selectedProject.details.modules && selectedProject.details.modules.length > 0 && (
+                <div className="modal-section">
+                  <h3><i className="fa-solid fa-cubes"></i> Core Modules & Features</h3>
+                  <div className="modal-modules-grid">
+                    {selectedProject.details.modules.map((mod, idx) => (
+                      <div key={idx} className="modal-module-card">
+                        <h4><i className="fa-solid fa-circle-check"></i> {mod.title}</h4>
+                        <p>{mod.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedProject.details.features && selectedProject.details.features.length > 0 && (
+                <div className="modal-section">
+                  <h3><i className="fa-solid fa-star"></i> Key Highlights</h3>
+                  <ul className="modal-features-list">
+                    {selectedProject.details.features.map((feat, idx) => (
+                      <li key={idx}>
+                        <i className="fa-solid fa-check"></i>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="modal-section">
+                <h3><i className="fa-solid fa-code"></i> Technologies Used</h3>
+                <div className="modal-tech-pills">
+                  {selectedProject.tech.map((t, idx) => (
+                    <span key={idx} className="modal-tech-pill">{t}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={() => setSelectedProject(null)}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
