@@ -5,6 +5,7 @@ function App() {
   const [filter, setFilter] = useState('all');
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
 
   const skillsRef = useRef(null);
   const [skillsVisible, setSkillsVisible] = useState(false);
@@ -288,13 +289,15 @@ function App() {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Scroll listener for active link highlight
+    // Scroll listener for active link highlight and header background
     const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
       const sections = document.querySelectorAll('section');
       let current = 'home';
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (window.scrollY >= (sectionTop - 250)) {
+        if (window.scrollY >= (sectionTop - 120)) {
           current = section.getAttribute('id');
         }
       });
@@ -376,7 +379,7 @@ function App() {
       </div>
 
       {/* Header */}
-      <header className="header">
+      <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <a href="#" className="logo">ABRAHAM<span>.M</span></a>
           <nav className={`nav-menu ${menuActive ? 'active' : ''}`}>
